@@ -12,20 +12,18 @@ var findSubstring = function (s: string, words: string[]): number[] {
     }
     const oneWordSize = words[0].length;
     const allWordSize = oneWordSize * words.length;
-    const initCountMap = (obj: { [key: string]: number }) => {
-        words.forEach(word => {
-            if (obj[word]) {
-                obj[word] += 1;
-            } else {
-                obj[word] = 1;
-            }
-        });
-    }
+    const countMapSeed: { [key: string]: number } = {};
+    words.forEach(word => {
+        if (countMapSeed[word]) {
+            countMapSeed[word] += 1;
+        } else {
+            countMapSeed[word] = 1;
+        }
+    });
 
     for (let i = 0; i < s.length - wordNum * oneWordSize + 1; i++) {
         const tmp = s.substring(i, i + allWordSize);
-        const countMap: { [key: string]: number } = {};
-        initCountMap(countMap);
+        const countMap: { [key: string]: number } = { ...countMapSeed };
         for (let j = 0; j < tmp.length; j += oneWordSize) {
             const word = tmp.substring(j, oneWordSize + j);
             if (Object.keys(countMap).includes(word)) {
