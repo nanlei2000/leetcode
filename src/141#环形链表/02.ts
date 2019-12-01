@@ -25,5 +25,4 @@ var hasCycle = function (head: ListNode<any>): boolean {
         head = head.next
     }
     return false;
-
 };
